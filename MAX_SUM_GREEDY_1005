@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+int compare(const void *a, const void *b)
+{
+    return (*(int *)a - *(int *)b);
+}
+
+int largestSumAfterKNegations(int nums[], int size, int k)
+{
+    qsort(nums, size, sizeof(int), compare);
+    for (int i = 0; i < size && k > 0; i++)
+    {
+        if (nums[i] < 0)
+        {
+            nums[i] = -nums[i];
+            k--;
+        }
+    }
+    qsort(nums, size, sizeof(int), compare);
+
+    if (k % 2 == 1)
+    {
+        nums[0] = -nums[0];
+    }
+    int sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        sum += nums[i];
+    }
+    return sum;
+}
+
+
+int main() {
+    int nums1[] = {4, 2, 3};
+    int k1 = 1;
+    int size1 = sizeof(nums1) / sizeof(nums1[0]);
+    printf("%d\n", largestSumAfterKNegations(nums1, size1, k1));
+
+    int nums2[] = {3, -1, 0, 2};
+    int k2 = 3;
+    int size2 = sizeof(nums2) / sizeof(nums2[0]);
+    printf("%d\n", largestSumAfterKNegations(nums2, size2, k2));
+
+    int nums3[] = {2, -3, -1, 5, -4};
+    int k3 = 2;
+    int size3 = sizeof(nums3) / sizeof(nums3[0]);
+    printf("%d\n", largestSumAfterKNegations(nums3, size3, k3));
+
+    return 0;
+}
