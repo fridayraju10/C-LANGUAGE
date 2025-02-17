@@ -1,0 +1,25 @@
+#include <stdio.h>
+void greedyCoinChange(int coins[], int n, int amount) {
+    printf("Coins used to make change for %d: ", amount);
+    for (int i = 0; i < n; i++) {
+        while (amount >= coins[i]) 
+        {
+            printf("%d ", coins[i]);
+            amount -= coins[i];
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int coins[] = {25, 10, 5, 1}; 
+    int n = sizeof(coins) / sizeof(coins[0]);
+    int amount;
+
+    printf("Enter the amount: ");
+    scanf("%d", &amount);
+
+    greedyCoinChange(coins, n, amount);
+
+    return 0;
+}
